@@ -61,3 +61,70 @@ fun();
     //For knwoing the type of var
     console.log(typeof(age))
     //Q.console.log(typeof(null)) it gives object
+
+    // console.log(2 > 1);
+// console.log(2 >= 1);
+// console.log(2 < 1);
+// console.log(2 == 1);
+// console.log(2 != 1);
+
+
+// console.log("2" > 1);
+// console.log("02" > 1);
+
+// console.log(null > 0);
+// console.log(null == 0);
+// console.log(null >= 0);
+
+// console.log(undefined == 0);
+// console.log(undefined > 0);
+// console.log(undefined < 0);
+
+// // === 
+
+// console.log("2" === 2); // here it will be check the datatype also, in comparison
+
+//  Primitive
+
+//  7 types : String, Number, Boolearn, null, undefined, Symbol, BigInt
+// these datatype will be pass by the value not their reference(its copy passed in the passing)
+
+const score = 100
+const scoreValue = 100.3
+
+const isLoggedIn = false
+const outsideTemp = null
+let userEmail;
+
+const id = Symbol('123')
+const anotherId = Symbol('123')
+
+console.log(id === anotherId); // it give false beacause the symbol make uniq rather that its value may be equal or not
+
+// const bigNumber = 3456543576654356754n when u add (n) It convert into bigInt datatype
+
+
+
+// Reference (Non primitive)
+
+// Array, Objects, Functions  // These are the pass by the refernece
+
+const heros = ["shaktiman", "naagraj", "doga"];
+let myObj = {
+    name: "hitesh",// these are the object
+    age: 22,
+}
+
+const myFunction = function(){
+    console.log("Hello world");
+}
+console.log(typeof myFunction) // give function but we call it function object
+console.log(typeof anotherId);
+
+// https://262.ecma-international.org/5.1/#sec-11.4.3
+
+//----------------------------------- Memory in the javascript
+// Stack(primitive), and Heap (Non-Primitive)
+
+
+ 
