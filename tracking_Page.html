@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Layout</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', Helvetica, sans-serif;
+            line-height: 1.6;
+            overflow: hidden;
+            /* Prevent scrolling of the body */
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #194f8a;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .logo .name {
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        .context ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .context ul li {
+            margin: 0 1rem;
+        }
+
+        .context ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        .context ul li a:hover {
+            color: #ffc107;
+        }
+
+        article {
+            display: flex;
+            flex-wrap: nowrap;
+            height: calc(100vh - 80px);
+            /* Ensure it fits within the viewport */
+        }
+        .left {
+            width: 20%;
+            /* Restrict height to a percentage of the viewport */
+            background-color: #101024;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 10px 14px;
+            color: white;
+            max-height: 60vh;
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+        }
+
+        .left div ul {
+            width: 446px;
+        }
+
+        .right {
+            width: 20%;
+            /* max-height: 60vh; */
+            /* Restrict height to a percentage of the viewport */
+            background-color: #101024;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 10px 14px;
+            color: white;
+            /* overflow-y: auto; */
+            /* Enable vertical scrolling */
+        }
+
+        .mid {
+            margin: 12px 0px 0px 0px;
+            color: white;
+            flex: 1;
+            padding: 2rem;
+            background-color: #194f8a;
+            border-radius: 12px;
+        }
+
+        .problem-list {
+            list-style: none;
+            border-radius: 1%;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            overflow-y: auto;
+            max-height: 80%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .problem-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s, max-height 0.3s ease-in-out;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+            overflow: hidden;
+            max-height: 150px;
+            /* Default height */
+            position: relative;
+        }
+
+        .problem-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .problem-item .content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .problem-item h4 {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .problem-item h4 span {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .problem-item h3 {
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-item p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .problem-item button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            align-self: flex-end;
+        }
+
+        .problem-item button:hover {
+            background-color: #6dcefc;
+        }
+
+        .subtask {
+            font-size: 0.9rem;
+            color: #444;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .anchor li {
+            margin: 10px 0;
+        }
+
+        .anchor li a {
+            list-style-type: circle;
+            font-size: 18px;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .anchor li a:hover {
+            color: rgb(255, 255, 255);
+            font-size: 23px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .context ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #444;
+                padding: 1rem;
+            }
+
+            .context ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            .hamburger div {
+                width: 25px;
+                height: 3px;
+                background-color: white;
+                margin: 5px 0;
+                transition: all 0.3s;
+            }
+
+            article {
+                flex-direction: column;
+            }
+
+            .left,
+            .right {
+                width: 100%;
+                max-height: 50vh;
+                /* Adjust for mobile screens */
+            }
+        }
+
+        /* Scroll Styling */
+        .left::-webkit-scrollbar,
+        .right::-webkit-scrollbar,
+        .mid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .left::-webkit-scrollbar-thumb,
+        .right::-webkit-scrollbar-thumb,
+        .mid::-webkit-scrollbar-thumb {
+            background-color: #bbb;
+            border-radius: 10px;
+        }
+
+        .left::-webkit-scrollbar-thumb:hover,
+        .right::-webkit-scrollbar-thumb:hover,
+        .mid::-webkit-scrollbar-thumb:hover {
+            background-color: #888;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">Logo</a>
+            <p class="name">Jaswant yadav</p>
+        </div>
+        <div class="hamburger">
+        </div>
+        <div class="context">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <article>
+        <!-- Left Section -->
+        <div class="left filter-section">
+            <ul class="anchor">
+                <h3>Courses List:</h3>
+                <li><a href="#" data-project="0">Java</a> </li>
+                <li><a href="#" data-project="1">Python</a> </li>
+                <li><a href="#" data-project="2">HTML</a> </li>
+                <li><a href="#" data-project="3">CSS</a> </li>
+                <li><a href="#" data-project="4">JavaScript</a> </li>
+                <li><a href="#" data-project="7">React.js</a> </li>
+                <li><a href="#" data-project="5">Express</a> </li>
+                <li><a href="#" data-project="8">MongoDB</a> </li>
+                <li><a href="#" data-project="6">Node.js</a> </li>
+
+            </ul>
+        </div>
+
+        <!-- Mid Section -->
+        <div class="mid">
+            <br>
+            <ul class="problem-list" id="problemList"></ul>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right">
+            <div class="widget">
+                <h3>Enrolled Project: 3</h3>
+                <p>Details about the current progress</p>
+                <ul>
+                    <li> Java <br> <progress value="80" max="100"></progress></li>
+                    <li> JavaScript <progress value="60" max="100"></progress></li>
+                    <li> React.js <progress value="20" max="100"></progress></li>
+                </ul>
+            </div>
+            <div class="widget">
+                <h3>Upcoming Contest</h3>
+                <p>Register for the next Practices Contest !</p>
+                <div class="advertisement" style="height: 23vh; width: 15vw; background-color: rgb(255, 255, 255);">
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <script>// Toggle navigation menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.context ul');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+
+
+        const javaLearningPath = [
+            {
+                title: "Java",
+                description: "A highly interpreted, platform-independent programming language.",
+                status: "uncomplete",
+                phases: [
+                    {
+                        step: 1,
+                        title: "History and Overview",
+                        description: "Developed by James Gosling in 1984, Java revolutionized programming.",
+                        status: "Start",
+                        subtask: [
+                            "Origin and evolution of Java",
+                            "Key features of Java",
+                            "Differences between Java and other programming languages",
+                            "The Java platform and JVM"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "Basics of Java Programming",
+                        description: "Learn how to set up and write your first Java program.",
+                        status: "Pending",
+                        subtask: [
+                            "Setting up the Java Development Kit (JDK)",
+                            "Writing and running your first Java program",
+                            "Java program structure: packages, classes, and methods",
+                            "Java syntax: comments, statements, and code blocks"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "Variables and Constants",
+                        description: "Understand how to declare and use variables in Java.",
+                        status: "Pending",
+                        subtask: [
+                            "Declaring and initializing variables",
+                            "Types of variables: local, instance, and static",
+                            "Naming conventions and rules",
+                            "Constants: 'final' keyword"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Data Types",
+                        description: "Learn about Java's primitive and non-primitive data types.",
+                        status: "Pending",
+                        subtask: [
+                            "Primitive data types: int, float, char, boolean, etc.",
+                            "Non-primitive data types: Strings, arrays, and objects",
+                            "Type conversion and casting",
+                            "Wrapper classes for primitive types"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Operators",
+                        description: "Get to know Java's operators for performing operations.",
+                        status: "Pending",
+                        subtask: [
+                            "Arithmetic operators: +, -, *, /, %",
+                            "Relational operators: ==, !=, <, >, <=, >=",
+                            "Logical operators: &&, ||, !",
+                            "Assignment operators: =, +=, -=, etc.",
+                            "Bitwise operators and shift operators"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "Control Structures",
+                        description: "Learn how to control the flow of your Java programs.",
+                        status: "Pending",
+                        subtask: [
+                            "Conditional statements: if, else if, else, switch",
+                            "Loops: for, while, do-while",
+                            "Breaking and continuing loops: break, continue",
+                            "Nested loops and decision-making"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Arrays",
+                        description: "Work with arrays to manage collections of data.",
+                        status: "Pending",
+                        subtask: [
+                            "Declaring and initializing arrays",
+                            "Single-dimensional and multi-dimensional arrays",
+                            "Common array operations: traversal, sorting, and searching",
+                            "Working with Arrays utility class"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "Object-Oriented Programming (OOP)",
+                        description: "Understand the principles of OOP in Java.",
+                        status: "Pending",
+                        subtask: [
+                            "Classes and objects",
+                            "Encapsulation and access modifiers (public, private, protected)",
+                            "Constructors and their types",
+                            "this and static keywords"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Inheritance and Polymorphism",
+                        description: "Dive deeper into OOP concepts with inheritance and polymorphism.",
+                        status: "Pending",
+                        subtask: [
+                            "Types of inheritance: single, multilevel, hierarchical",
+                            "Overriding methods and super keyword",
+                            "Polymorphism: method overloading and method overriding",
+                            "Abstract classes and interfaces"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Exception Handling",
+                        description: "Learn how to handle errors gracefully in Java.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding exceptions: checked and unchecked",
+                            "Using try, catch, finally, and throw",
+                            "Built-in exceptions and custom exceptions",
+                            "Best practices for error handling"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Java Strings",
+                        description: "Master the use of Strings in Java programs.",
+                        status: "Pending",
+                        subtask: [
+                            "String operations: concatenation, comparison, and methods",
+                            "StringBuilder and StringBuffer",
+                            "String immutability and memory management"
+                        ]
+                    },
+                    {
+                        step: 12,
+                        title: "Collections Framework",
+                        description: "Explore the powerful Collections Framework in Java.",
+                        status: "Pending",
+                        subtask: [
+                            "Overview of collections: List, Set, Map",
+                            "ArrayList, LinkedList, HashSet, HashMap",
+                            "Iterators and enhanced for loop",
+                            "Sorting and searching with collections"
+                        ]
+                    },
+                    {
+                        step: 13,
+                        title: "File Handling",
+                        description: "Learn how to read and write files in Java.",
+                        status: "Pending",
+                        subtask: [
+                            "Working with files and directories",
+                            "Reading and writing files using FileReader and FileWriter",
+                            "Buffered streams for efficient I/O",
+                            "Serialization and deserialization"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Python",
+                description: "A high-level, interpreted programming language known for its simplicity and versatility.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to Python",
+                        description: "Learn the basics of Python, its history, and key features.",
+                        status: "Start",
+                        subtask: [
+                            "History and evolution of Python",
+                            "Key features of Python",
+                            "Installing Python and setting up the environment",
+                            "Running your first Python script"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "Python Basics",
+                        description: "Understand Python's syntax and basic constructs.",
+                        status: "Pending",
+                        subtask: [
+                            "Python syntax and indentation",
+                            "Comments and docstrings",
+                            "Using print statements for output",
+                            "Python as an interactive interpreter"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "Variables and Data Types",
+                        description: "Learn how to declare and use variables in Python.",
+                        status: "Pending",
+                        subtask: [
+                            "Declaring and assigning variables",
+                            "Primitive data types: int, float, str, bool",
+                            "Complex data types: lists, tuples, dictionaries",
+                            "Typecasting and dynamic typing"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Control Flow",
+                        description: "Understand how to manage program flow with conditions and loops.",
+                        status: "Pending",
+                        subtask: [
+                            "Conditional statements: if, elif, else",
+                            "Loops: for, while",
+                            "Breaking and continuing loops",
+                            "List comprehensions and generator expressions"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Functions",
+                        description: "Learn how to create and use functions in Python.",
+                        status: "Pending",
+                        subtask: [
+                            "Defining functions with def",
+                            "Parameters and arguments",
+                            "Default and keyword arguments",
+                            "Lambda functions"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "Modules and Packages",
+                        description: "Explore Python's modular programming capabilities.",
+                        status: "Pending",
+                        subtask: [
+                            "Importing built-in modules",
+                            "Creating custom modules",
+                            "Using packages and namespaces",
+                            "Managing dependencies with pip"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Object-Oriented Programming (OOP)",
+                        description: "Dive into Python's OOP features.",
+                        status: "Pending",
+                        subtask: [
+                            "Classes and objects",
+                            "Encapsulation and access modifiers",
+                            "Inheritance and polymorphism",
+                            "Magic methods and operator overloading"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "File Handling",
+                        description: "Learn how to work with files in Python.",
+                        status: "Pending",
+                        subtask: [
+                            "Reading and writing files",
+                            "Using context managers with `with`",
+                            "Handling file paths with os and pathlib",
+                            "File encoding and handling exceptions"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Error and Exception Handling",
+                        description: "Handle runtime errors gracefully.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding exceptions: try, except, finally",
+                            "Raising custom exceptions",
+                            "Logging errors",
+                            "Best practices for error handling"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Python Libraries and Frameworks",
+                        description: "Introduction to Python's rich ecosystem.",
+                        status: "Pending",
+                        subtask: [
+                            "Exploring NumPy and pandas for data analysis",
+                            "Using Flask and Django for web development",
+                            "Introduction to data visualization with Matplotlib and Seaborn",
+                            "Working with APIs and requests"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Working with Databases",
+                        description: "Learn how to interact with databases in Python.",
+                        status: "Pending",
+                        subtask: [
+                            "Using SQLite with Python",
+                            "Performing CRUD operations",
+                            "Working with SQLAlchemy",
+                            "Managing database connections and transactions"
+                        ]
+                    },
+                    {
+                        step: 12,
+                        title: "Testing and Debugging",
+                        description: "Master debugging and testing your Python code.",
+                        status: "Pending",
+                        subtask: [
+                            "Debugging with pdb",
+                            "Writing unit tests with unittest",
+                            "Using pytest for advanced testing",
+                            "Test-driven development principles"
+                        ]
+                    },
+                    {
+                        step: 13,
+                        title: "Advanced Python",
+                        description: "Explore advanced Python topics for mastery.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding decorators and metaclasses",
+                            "Working with async and await",
+                            "Exploring the multiprocessing module",
+                            "Using Python for scripting and automation"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "HTML",
+                description: "The standard markup language for creating web pages and applications.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to HTML",
+                        description: "Learn what HTML is and its role in web development.",
+                        status: "Start",
+                        subtask: [
+                            "What is HTML and its history",
+                            "HTML structure and syntax",
+                            "Tools and editors for writing HTML",
+                            "Creating your first HTML document"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "HTML Basics",
+                        description: "Learn the fundamental building blocks of HTML.",
+                        status: "Pending",
+                        subtask: [
+                            "HTML elements and attributes",
+                            "Understanding tags: opening and closing tags",
+                            "HTML headings, paragraphs, and line breaks",
+                            "Working with comments"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "Working with Text",
+                        description: "Format text content with HTML.",
+                        status: "Pending",
+                        subtask: [
+                            "Formatting tags: bold, italic, underline, etc.",
+                            "HTML lists: ordered, unordered, and description lists",
+                            "Using semantic tags for text: `article `, ` section `, ` aside `",
+                            "Adding quotes and citations"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Links and Navigation",
+                        description: "Create hyperlinks and navigation menus.",
+                        status: "Pending",
+                        subtask: [
+                            "Using the `<a>` tag",
+                            "Absolute vs relative URLs",
+                            "Opening links in a new tab",
+                            "Creating navigation bars"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Images and Multimedia",
+                        description: "Embed images, audio, and video into web pages.",
+                        status: "Pending",
+                        subtask: [
+                            "Using the `img` tag",
+                            "Image attributes: alt, width, height",
+                            "Embedding videos with `video`",
+                            "Adding audio with ` audio`"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "Tables",
+                        description: "Learn to organize data using tables.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating tables with `<table>`",
+                            "Adding rows and columns",
+                            "Using `<thead>`, `<tbody>`, and `<tfoot>`",
+                            "Merging cells with rowspan and colspan"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Forms and Inputs",
+                        description: "Collect user input with HTML forms.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating forms with `<form>`",
+                            "Input types: text, email, password, etc.",
+                            "Using labels, placeholders, and validations",
+                            "Working with `<textarea>`, `<select>`, and checkboxes"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "HTML5 Features",
+                        description: "Explore modern features of HTML5.",
+                        status: "Pending",
+                        subtask: [
+                            "New semantic tags: `<header>`, `<footer>`, `<main>`",
+                            "Using the `<canvas>` element for graphics",
+                            "Embedding external content with `<iframe>`",
+                            "Working with data attributes"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "CSS",
+                description: "A style sheet language used to describe the presentation of a document written in HTML.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to CSS",
+                        description: "Learn what CSS is and how it enhances HTML.",
+                        status: "Start",
+                        subtask: [
+                            "What is CSS and its role in web design",
+                            "CSS syntax: selectors, properties, and values",
+                            "Including CSS in HTML: inline, internal, and external",
+                            "Creating your first CSS file"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "CSS Selectors and Specificity",
+                        description: "Understand how to target elements with CSS.",
+                        status: "Pending",
+                        subtask: [
+                            "Basic selectors: element, class, ID",
+                            "Group selectors and combinators",
+                            "Pseudo-classes and pseudo-elements",
+                            "Understanding CSS specificity"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "Colors and Backgrounds",
+                        description: "Style elements with colors and backgrounds.",
+                        status: "Pending",
+                        subtask: [
+                            "Setting text and background colors",
+                            "Working with gradients",
+                            "Adding background images",
+                            "Using transparency with RGBA"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Box Model and Layouts",
+                        description: "Master the CSS box model and layouts.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the box model: content, padding, border, margin",
+                            "Setting dimensions: width, height, max-width, etc.",
+                            "Using display properties: block, inline, inline-block",
+                            "Positioning elements: relative, absolute, fixed, sticky"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Typography",
+                        description: "Style text and fonts effectively.",
+                        status: "Pending",
+                        subtask: [
+                            "Font properties: font-family, size, weight, style",
+                            "Text alignment and decoration",
+                            "Line height and letter spacing",
+                            "Using Google Fonts and custom fonts"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "CSS Flexbox",
+                        description: "Learn to build flexible layouts with Flexbox.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the flex container and flex items",
+                            "Aligning items horizontally and vertically",
+                            "Using space-around and space-between",
+                            "Responsive design with Flexbox"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "CSS Grid",
+                        description: "Master CSS Grid for advanced layouts.",
+                        status: "Pending",
+                        subtask: [
+                            "Defining grid containers and items",
+                            "Setting rows and columns with grid-template",
+                            "Using grid areas for layout design",
+                            "Combining Grid and Flexbox"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "Animations and Transitions",
+                        description: "Add motion to your designs with CSS.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating transitions with hover effects",
+                            "Keyframe animations",
+                            "Using transform for scaling and rotating",
+                            "Creating responsive animations"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Responsive Design",
+                        description: "Ensure your designs look great on all devices.",
+                        status: "Pending",
+                        subtask: [
+                            "Using media queries for breakpoints",
+                            "Fluid grids and flexible images",
+                            "Mobile-first design approach",
+                            "Working with viewport units"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "JavaScript",
+                description: "A versatile programming language essential for web development, used for creating dynamic and interactive web applications.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to JavaScript",
+                        description: "Learn what JavaScript is and its role in web development.",
+                        status: "Start",
+                        subtask: [
+                            "What is JavaScript and its history",
+                            "JavaScript's role in front-end, back-end, and full-stack development",
+                            "Understanding the browser console",
+                            "Setting up a development environment"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "JavaScript Basics",
+                        description: "Get familiar with basic syntax and data types.",
+                        status: "Pending",
+                        subtask: [
+                            "Variables: var, let, and const",
+                            "Data types: string, number, boolean, null, undefined, and symbol",
+                            "JavaScript expressions and statements",
+                            "Comments and console.log for debugging"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "Operators and Control Flow",
+                        description: "Learn to use operators and control program flow.",
+                        status: "Pending",
+                        subtask: [
+                            "Arithmetic, assignment, comparison, and logical operators",
+                            "Conditional statements: if, else, switch",
+                            "Loops: for, while, do-while",
+                            "Break, continue, and nested loops"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Functions and Scope",
+                        description: "Master functions and variable scope in JavaScript.",
+                        status: "Pending",
+                        subtask: [
+                            "Function declarations and expressions",
+                            "Arrow functions and the `this` keyword",
+                            "Global vs local scope",
+                            "Closures and IIFE (Immediately Invoked Function Expressions)"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Objects and Arrays",
+                        description: "Work with complex data structures in JavaScript.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating and manipulating objects",
+                            "Object methods and `this`",
+                            "Arrays: creating, traversing, and manipulating",
+                            "ES6 features: destructuring, spread, and rest operators"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "DOM Manipulation",
+                        description: "Interact with the Document Object Model (DOM).",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the DOM tree",
+                            "Selecting elements: getElementById, querySelector, etc.",
+                            "Modifying elements: innerHTML, textContent, styles",
+                            "Handling events: click, hover, keypress"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Advanced Functions",
+                        description: "Dive deeper into advanced JavaScript functions.",
+                        status: "Pending",
+                        subtask: [
+                            "Higher-order functions and callbacks",
+                            "Array methods: map, filter, reduce, and forEach",
+                            "Function currying",
+                            "Debouncing and throttling"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "ES6 and Beyond",
+                        description: "Learn modern JavaScript features and syntax.",
+                        status: "Pending",
+                        subtask: [
+                            "Template literals and tagged templates",
+                            "Default parameters and rest/spread operators",
+                            "Modules: import/export",
+                            "Promises, async/await, and fetch API"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Error Handling and Debugging",
+                        description: "Write robust code with proper error handling.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding try, catch, finally, and throw",
+                            "Debugging with breakpoints and the debugger tool",
+                            "Common JavaScript errors and how to fix them",
+                            "Custom error creation"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Object-Oriented Programming (OOP)",
+                        description: "Master OOP principles in JavaScript.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating classes and objects",
+                            "Inheritance with `extends` and `super`",
+                            "Encapsulation and private fields/methods",
+                            "Prototypes and prototype inheritance"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Asynchronous JavaScript",
+                        description: "Work with asynchronous operations effectively.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the event loop and call stack",
+                            "Callbacks and callback hell",
+                            "Promises and chaining",
+                            "Async/await and error handling in async code"
+                        ]
+                    },
+                    {
+                        step: 12,
+                        title: "Working with APIs",
+                        description: "Learn to fetch and manipulate data from APIs.",
+                        status: "Pending",
+                        subtask: [
+                            "Using fetch API for HTTP requests",
+                            "Handling JSON data",
+                            "RESTful APIs and CRUD operations",
+                            "Error handling with network requests"
+                        ]
+                    },
+                    {
+                        step: 13,
+                        title: "JavaScript Design Patterns",
+                        description: "Implement common design patterns in JavaScript.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding design patterns: Singleton, Factory, Module",
+                            "Implementing MVC and MVVM",
+                            "Observer and Pub/Sub patterns",
+                            "Writing reusable and scalable code"
+                        ]
+                    },
+                    {
+                        step: 14,
+                        title: "Testing JavaScript Code",
+                        description: "Write testable and maintainable JavaScript code.",
+                        status: "Pending",
+                        subtask: [
+                            "Unit testing with Jest or Mocha",
+                            "End-to-end testing with Cypress",
+                            "Writing test cases for functions and components",
+                            "Debugging failing tests"
+                        ]
+                    },
+                    {
+                        step: 15,
+                        title: "JavaScript Frameworks and Libraries",
+                        description: "Explore popular JavaScript frameworks and libraries.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding React basics",
+                            "Using Vue.js for reactive development",
+                            "Building projects with Angular",
+                            "Introduction to utility libraries like Lodash and Moment.js"
+                        ]
+                    },
+                    {
+                        step: 16,
+                        title: "Performance Optimization",
+                        description: "Improve the performance of JavaScript applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Minimizing reflows and repaints in the DOM",
+                            "Lazy loading images and components",
+                            "Code splitting and bundling",
+                            "Optimizing loops and algorithms"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Express.js",
+                description: "A minimal and flexible Node.js web application framework for building robust APIs and web applications.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to Express.js",
+                        description: "Understand the basics of Express.js and its use cases.",
+                        status: "Start",
+                        subtask: [
+                            "What is Express.js?",
+                            "Features and benefits of Express.js",
+                            "Installing Node.js and Express.js",
+                            "Setting up a basic Express server"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "Routing in Express.js",
+                        description: "Learn to define and handle different routes in your application.",
+                        status: "Pending",
+                        subtask: [
+                            "Defining routes using app.get, app.post, app.put, app.delete",
+                            "Handling route parameters and query strings",
+                            "Using middleware for route handling",
+                            "Dynamic routing and route grouping"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "Middleware in Express.js",
+                        description: "Understand the role of middleware in request processing.",
+                        status: "Pending",
+                        subtask: [
+                            "What is middleware and how does it work?",
+                            "Creating custom middleware functions",
+                            "Using built-in middleware like express.json and express.static",
+                            "Third-party middleware: body-parser, cookie-parser, morgan"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Template Engines",
+                        description: "Integrate template engines to render dynamic content.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding template engines and their role",
+                            "Using Pug, EJS, or Handlebars with Express",
+                            "Passing data to templates for dynamic rendering",
+                            "Setting up views and layouts"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Working with APIs",
+                        description: "Learn to create and consume RESTful APIs with Express.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding REST principles",
+                            "Creating GET, POST, PUT, and DELETE routes",
+                            "Handling request and response objects",
+                            "Error handling and status codes"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "Database Integration",
+                        description: "Connect your Express app to a database.",
+                        status: "Pending",
+                        subtask: [
+                            "Integrating with MongoDB using Mongoose",
+                            "CRUD operations with MongoDB",
+                            "Validating and sanitizing data",
+                            "Using relational databases with Sequelize or Knex"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Authentication and Authorization",
+                        description: "Secure your Express applications with authentication mechanisms.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding authentication vs authorization",
+                            "Implementing session-based authentication",
+                            "Using JSON Web Tokens (JWT) for authentication",
+                            "Integrating third-party authentication with OAuth or Passport.js"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "Error Handling",
+                        description: "Handle and manage errors in Express applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating custom error-handling middleware",
+                            "Defining global error handlers",
+                            "Using try-catch blocks for asynchronous code",
+                            "Returning proper HTTP status codes and error messages"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Serving Static Files",
+                        description: "Serve static files such as HTML, CSS, and images.",
+                        status: "Pending",
+                        subtask: [
+                            "Using express.static to serve files",
+                            "Configuring static file directories",
+                            "Serving single-page applications (SPAs) with React or Angular",
+                            "Caching and compression for performance optimization"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Real-Time Communication",
+                        description: "Integrate real-time features in your applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Using WebSockets with Socket.IO",
+                            "Implementing real-time chat functionality",
+                            "Broadcasting events to multiple clients",
+                            "Handling real-time notifications"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Deployment and Best Practices",
+                        description: "Learn how to deploy Express applications and follow best practices.",
+                        status: "Pending",
+                        subtask: [
+                            "Deploying to cloud platforms like Heroku, AWS, or Azure",
+                            "Configuring environment variables",
+                            "Using PM2 for process management",
+                            "Best practices for security and performance"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "Node.js",
+                description: "A runtime environment for executing JavaScript code outside of the browser, ideal for building scalable network applications.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to Node.js",
+                        description: "Understand what Node.js is and its core features.",
+                        status: "Start",
+                        subtask: [
+                            "What is Node.js and why use it?",
+                            "The V8 JavaScript engine and event-driven architecture",
+                            "Installing Node.js and setting up your environment",
+                            "Running your first Node.js script"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "Node.js Modules",
+                        description: "Learn about the modular architecture of Node.js.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding built-in modules: fs, path, os, etc.",
+                            "Creating and using custom modules",
+                            "The CommonJS module system",
+                            "Using npm to manage third-party modules"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "File System and Streams",
+                        description: "Work with the file system and implement stream operations.",
+                        status: "Pending",
+                        subtask: [
+                            "Reading and writing files using the fs module",
+                            "Working with directories and file paths",
+                            "Understanding readable and writable streams",
+                            "File compression and decompression using zlib"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Asynchronous Programming",
+                        description: "Master asynchronous programming in Node.js.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the event loop and non-blocking I/O",
+                            "Using callbacks for asynchronous operations",
+                            "Working with Promises and async/await",
+                            "Error handling in asynchronous code"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "HTTP and Networking",
+                        description: "Learn to build web servers and manage networking tasks.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating an HTTP server",
+                            "Handling HTTP requests and responses",
+                            "Working with URL and query strings",
+                            "Making HTTP requests using http and https modules"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "Event Emitter and Events",
+                        description: "Understand the event-driven nature of Node.js.",
+                        status: "Pending",
+                        subtask: [
+                            "The EventEmitter class and its methods",
+                            "Creating and handling custom events",
+                            "Using events for inter-module communication",
+                            "Listening to and removing event listeners"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Node.js with Databases",
+                        description: "Integrate Node.js with relational and NoSQL databases.",
+                        status: "Pending",
+                        subtask: [
+                            "Connecting to MongoDB using Mongoose",
+                            "Performing CRUD operations with MongoDB",
+                            "Using MySQL/PostgreSQL with Node.js",
+                            "Database connection pooling and optimization"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "Building APIs with Node.js",
+                        description: "Create RESTful APIs for web applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding REST principles",
+                            "Setting up routes and handling requests",
+                            "Implementing middleware for API logic",
+                            "Versioning and documenting APIs with Swagger"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Authentication and Authorization",
+                        description: "Secure your Node.js applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Using JSON Web Tokens (JWT) for authentication",
+                            "Hashing passwords with bcrypt",
+                            "Implementing OAuth2.0 and third-party logins",
+                            "Managing sessions and cookies"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Debugging and Testing",
+                        description: "Ensure reliability through debugging and testing.",
+                        status: "Pending",
+                        subtask: [
+                            "Debugging Node.js applications with built-in tools",
+                            "Using popular testing frameworks like Mocha and Jest",
+                            "Writing unit, integration, and end-to-end tests",
+                            "Mocking dependencies and test-driven development (TDD)"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Real-Time Applications",
+                        description: "Implement real-time functionality in your applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Using WebSockets with the ws or Socket.IO library",
+                            "Building real-time chat applications",
+                            "Streaming data to clients in real-time",
+                            "Managing concurrent connections effectively"
+                        ]
+                    },
+                    {
+                        step: 12,
+                        title: "Deployment and Optimization",
+                        description: "Learn to deploy and optimize Node.js applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Deploying to cloud services like AWS, Heroku, or Vercel",
+                            "Using PM2 for process management",
+                            "Monitoring applications with tools like New Relic",
+                            "Optimizing performance and memory usage"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "React.js",
+                description: "A powerful library for building dynamic, user-friendly interfaces.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to React",
+                        description: "Learn the fundamentals of React and its core concepts.",
+                        status: "Start",
+                        subtask: [
+                            "What is React and why use it?",
+                            "Setting up a React environment using Create React App (CRA)",
+                            "Understanding JSX and the Virtual DOM",
+                            "React Components: functional vs class components"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "State and Props",
+                        description: "Master state management and the flow of data using props.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding and using state in React",
+                            "Passing data between components with props",
+                            "State lifting and unidirectional data flow",
+                            "PropTypes for type checking"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "React Lifecycle and Hooks",
+                        description: "Dive into component lifecycles and React hooks.",
+                        status: "Pending",
+                        subtask: [
+                            "Component lifecycle methods (for class components)",
+                            "Introduction to React hooks: useState, useEffect",
+                            "Managing side effects with useEffect",
+                            "Advanced hooks: useContext, useReducer, useMemo"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Routing with React Router",
+                        description: "Learn how to implement navigation in your React applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Setting up React Router in your project",
+                            "Defining routes and using the Link component",
+                            "Using dynamic routing and URL parameters",
+                            "Implementing nested routes and redirects"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Forms and Events",
+                        description: "Understand handling user input and events in React.",
+                        status: "Pending",
+                        subtask: [
+                            "Handling form inputs and two-way binding",
+                            "Controlled vs uncontrolled components",
+                            "Form validation with React",
+                            "Handling custom events"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "State Management with Context API",
+                        description: "Learn to manage global state in your applications.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the Context API and its use cases",
+                            "Creating and providing a context",
+                            "Consuming context using useContext",
+                            "Replacing Redux with Context API for simpler applications"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Styling in React",
+                        description: "Explore ways to style components in React.",
+                        status: "Pending",
+                        subtask: [
+                            "Using plain CSS and CSS modules",
+                            "Styled-components for CSS-in-JS",
+                            "Tailwind CSS integration",
+                            "Responsive design with media queries"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "Advanced State Management with Redux",
+                        description: "Manage complex states with Redux.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding Redux: actions, reducers, and the store",
+                            "Setting up a Redux store in a React app",
+                            "Using React-Redux hooks (useSelector, useDispatch)",
+                            "Middleware and Redux Thunk"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "APIs and Async Data",
+                        description: "Work with external APIs and handle asynchronous data.",
+                        status: "Pending",
+                        subtask: [
+                            "Fetching data with fetch API and Axios",
+                            "Handling loading and error states",
+                            "Integrating with RESTful APIs",
+                            "Using React Query for advanced data fetching"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Performance Optimization",
+                        description: "Optimize your React applications for better performance.",
+                        status: "Pending",
+                        subtask: [
+                            "Using React.memo for memoization",
+                            "Lazy loading components with React.lazy and Suspense",
+                            "Code splitting with Webpack",
+                            "Profiling React applications with React Developer Tools"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Testing React Applications",
+                        description: "Ensure quality with automated tests for React apps.",
+                        status: "Pending",
+                        subtask: [
+                            "Setting up Jest and React Testing Library",
+                            "Writing unit tests for components",
+                            "Snapshot testing for UI validation",
+                            "End-to-end testing with Cypress"
+                        ]
+                    },
+                    {
+                        step: 12,
+                        title: "Building and Deploying React Apps",
+                        description: "Take your React app from development to production.",
+                        status: "Pending",
+                        subtask: [
+                            "Building your app for production",
+                            "Deploying to platforms like Netlify, Vercel, or Heroku",
+                            "Configuring environment variables",
+                            "Best practices for production-ready apps"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "MongoDB",
+                description: "A NoSQL, document-oriented database designed for scalability and flexibility.",
+                phases: [
+                    {
+                        step: 1,
+                        title: "Introduction to MongoDB",
+                        description: "Understand the basics and features of MongoDB.",
+                        status: "Start",
+                        subtask: [
+                            "What is MongoDB and why use it?",
+                            "Understanding NoSQL vs. SQL databases",
+                            "Installing MongoDB and setting up the environment",
+                            "MongoDB Compass and its GUI interface"
+                        ]
+                    },
+                    {
+                        step: 2,
+                        title: "Data Modeling in MongoDB",
+                        description: "Learn how to design data structures for MongoDB.",
+                        status: "Pending",
+                        subtask: [
+                            "Document-oriented data model and BSON",
+                            "Collections, documents, and fields",
+                            "Schema design best practices",
+                            "Embedding vs. referencing data"
+                        ]
+                    },
+                    {
+                        step: 3,
+                        title: "CRUD Operations",
+                        description: "Perform basic Create, Read, Update, and Delete operations.",
+                        status: "Pending",
+                        subtask: [
+                            "Inserting single and multiple documents",
+                            "Querying data with find() and findOne()",
+                            "Updating documents with updateOne() and updateMany()",
+                            "Deleting data with deleteOne() and deleteMany()"
+                        ]
+                    },
+                    {
+                        step: 4,
+                        title: "Advanced Querying",
+                        description: "Dive deeper into querying capabilities of MongoDB.",
+                        status: "Pending",
+                        subtask: [
+                            "Using comparison operators ($eq, $gt, $lt, etc.)",
+                            "Logical operators ($and, $or, $not)",
+                            "Working with array fields and operators ($elemMatch, $all)",
+                            "Projections and sorting results"
+                        ]
+                    },
+                    {
+                        step: 5,
+                        title: "Indexing in MongoDB",
+                        description: "Optimize database performance using indexes.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating single-field and compound indexes",
+                            "Understanding index types: unique, sparse, TTL, etc.",
+                            "Query optimization with explain()",
+                            "Indexing best practices for performance"
+                        ]
+                    },
+                    {
+                        step: 6,
+                        title: "Aggregation Framework",
+                        description: "Analyze and transform data using the aggregation framework.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding the aggregation pipeline",
+                            "Stages: $match, $group, $sort, $project, $lookup, etc.",
+                            "Performing calculations and transformations",
+                            "Working with nested documents and arrays"
+                        ]
+                    },
+                    {
+                        step: 7,
+                        title: "Replication and High Availability",
+                        description: "Learn how to set up replication for fault tolerance.",
+                        status: "Pending",
+                        subtask: [
+                            "Setting up replica sets",
+                            "Understanding primary and secondary nodes",
+                            "Failover mechanisms and priority settings",
+                            "Monitoring replica sets for consistency"
+                        ]
+                    },
+                    {
+                        step: 8,
+                        title: "Sharding and Scalability",
+                        description: "Distribute data across multiple servers for scalability.",
+                        status: "Pending",
+                        subtask: [
+                            "Understanding sharding concepts and architecture",
+                            "Configuring shard keys and zones",
+                            "Balancing data across shards",
+                            "Best practices for sharding large-scale databases"
+                        ]
+                    },
+                    {
+                        step: 9,
+                        title: "Security in MongoDB",
+                        description: "Secure your database with authentication and authorization.",
+                        status: "Pending",
+                        subtask: [
+                            "User roles and access control lists (ACLs)",
+                            "Enabling authentication and creating users",
+                            "Securing communication with TLS/SSL",
+                            "Auditing and monitoring security events"
+                        ]
+                    },
+                    {
+                        step: 10,
+                        title: "Working with MongoDB in Applications",
+                        description: "Integrate MongoDB with your application stack.",
+                        status: "Pending",
+                        subtask: [
+                            "Connecting to MongoDB using the Node.js driver",
+                            "Using ODMs like Mongoose for schema management",
+                            "Handling database errors and timeouts",
+                            "Query optimization in application code"
+                        ]
+                    },
+                    {
+                        step: 11,
+                        title: "Backup and Recovery",
+                        description: "Manage backups and restore your MongoDB database.",
+                        status: "Pending",
+                        subtask: [
+                            "Creating backups with mongodump and snapshots",
+                            "Restoring data using mongorestore",
+                            "Automating backups with scripts",
+                            "Point-in-time recovery strategies"
+                        ]
+                    },
+                    {
+                        step: 12,
+                        title: "Deployment and Monitoring",
+                        description: "Deploy MongoDB in production and monitor its performance.",
+                        status: "Pending",
+                        subtask: [
+                            "Deploying MongoDB on cloud platforms like AWS, GCP, or Azure",
+                            "Using MongoDB Atlas for managed services",
+                            "Monitoring databases with MongoDB Ops Manager",
+                            "Performance tuning and troubleshooting common issues"
+                        ]
+                    }
+                ]
+            }
+        ];
+        //
+        const links = document.querySelectorAll('.anchor li a');
+        const midContent = document.querySelector('.mid');
+        const problemList = document.getElementById('problemList');
+
+        links.forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const linkInd = e.target.getAttribute('data-project');
+                const project = javaLearningPath[linkInd];
+
+                // Clear existing content in problemList
+                problemList.innerHTML = '';
+
+                // Update project description
+                const divdesPro = document.querySelector('.headpro-descrip') || document.createElement("div");
+                divdesPro.className = "headpro-descrip";
+                divdesPro.innerHTML = `
+            <h2>Project Title: ${project.title}</h2>
+            <h4>Project Description: ${project.description}</h4>
+            <p>Project Status: ${project.status}</p>`;
+                if (!document.querySelector('.headpro-descrip')) {
+                    midContent.prepend(divdesPro);
+                }
+
+                // Add project phases to the problemList
+                project.phases.forEach((phase) => {
+                    const li = document.createElement("li");
+                    li.className = "problem-item";
+
+                    li.innerHTML = `
+                <div class="content">
+                    <h4>Step: <span>${phase.step}</span></h4>
+                    <h3>${phase.title}</h3>
+                    <p>${phase.description}</p>
+                </div>
+                <button class="viewdetail">${phase.status}</button>`;
+
+                    // Add subtasks
+                    phase.subtask.forEach((sb) => {
+                        const subtask = document.createElement("li");
+                        subtask.className = "subtask";
+                        subtask.innerHTML = `<p># ${sb}</p>`;
+                        li.appendChild(subtask);
+                    });
+
+                    // Add event listener for the button to toggle subtasks
+                    const button = li.querySelector('.viewdetail');
+                    button.addEventListener('click', () => {
+                        const subtasks = li.querySelectorAll('.subtask');
+                        subtasks.forEach((subtask) => {
+                            const isHidden = subtask.style.display === 'none' || !subtask.style.display;
+                            subtask.style.display = isHidden ? 'block' : 'none';
+                        });
+
+                        // Adjust height of li based on visibility
+                        const isExpanded = subtasks[0].style.display === 'block';
+                        li.style.maxHeight = isExpanded ? `${li.scrollHeight}px` : '150px';
+                    });
+
+                    problemList.appendChild(li);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
